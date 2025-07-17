@@ -19,7 +19,8 @@ const LocationSelector = ({ selections, setSelections }) => {
         setSelections(prev => ({ ...prev, provinceKey: e.target.value }));
     };
     return (
-        <div className="flex flex-wrap items-center gap-2">
+        // <-- RESPONSIVE: 'flex-col' en móvil, 'flex-row' en PC -->
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <select value={regionKey} onChange={handleRegionChange} className="bg-slate-700/60 text-white rounded-md p-2 font-semibold border-2 border-transparent focus:border-blue-500 focus:outline-none appearance-none">
                 {Object.keys(REGIONS).map(key => <option key={key} value={key} className="text-black">{REGIONS[key].name}</option>)}
             </select>
@@ -45,7 +46,8 @@ const TurbineConfigurator = ({ config, setConfig }) => {
     return (
         <div className="bg-slate-800/50 p-4 rounded-lg mt-4">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center"><Wrench className="mr-2"/>Parque Eólico</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-white">
+            {/* <-- RESPONSIVE: 2 columnas en móvil, 4 en PC --> */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-white">
                 <InputField label="Nº Aerogeneradores" name="turbineCount" value={config.turbineCount} onChange={handleInputChange} />
                 <InputField label="Área Rotor (m²)" name="rotorArea" value={config.rotorArea} onChange={handleInputChange} placeholder="Ej: 7850" />
                 <InputField label="Coef. Potencia (Cp)" name="powerCoefficient" value={config.powerCoefficient} onChange={handleInputChange} step="0.01" placeholder="0.25-0.45" />
@@ -124,16 +126,13 @@ export default function WindDashboard({ initialData, initialRegion, initialProvi
     if (processedData && processedData.length > 0) {
       console.log("Guardando datos de producción EÓLICA en localStorage...");
       const existingCalendarData = JSON.parse(localStorage.getItem('calendarEnergyData')) || {};
-
       processedData.forEach(day => {
         const dateKey = day.shortDate;
-
         existingCalendarData[dateKey] = {
           ...existingCalendarData[dateKey],
           windPredicted: parseFloat(day.totalProductionKWh.toFixed(2)),
         };
       });
-
       localStorage.setItem('calendarEnergyData', JSON.stringify(existingCalendarData));
     }
   }, [processedData]);
@@ -166,17 +165,18 @@ export default function WindDashboard({ initialData, initialRegion, initialProvi
 
   return (
     <div className="w-full max-w-7xl mx-auto font-sans bg-slate-900/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl shadow-2xl text-white">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 p-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl shadow-lg">
+      {/* <-- RESPONSIVE: 'text-center' en móvil, 'text-left' en PC --> */}
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-center sm:text-left mb-6 p-4 sm:p-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl shadow-lg">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold">
             <LocationSelector selections={location} setSelections={setLocation} />
           </h1>
-          <p className="opacity-80 mt-1">Pronóstico de producción eólica para los próximos 16 días</p>
+          <p className="opacity-80 mt-1 text-sm sm:text-base">Pronóstico de producción eólica para los próximos 16 días</p>
         </div>
-        <div className="mt-4 sm:mt-0 text-right">
-          <div className="text-4xl sm:text-5xl font-bold">{total16DayProductionKWh.toLocaleString('es-ES', { maximumFractionDigits: 0 })}</div>
-          <div className="opacity-80">kWh de producción total (16 días)</div>
-          <div className="font-semibold text-white/90 mt-1">{averageDailyProductionKWh.toFixed(2)} kWh prom. diario</div>
+        <div className="mt-4 sm:mt-0 text-center sm:text-right w-full sm:w-auto">
+          <div className="text-3xl sm:text-5xl font-bold">{total16DayProductionKWh.toLocaleString('es-ES', { maximumFractionDigits: 0 })}</div>
+          <p className="opacity-80 text-sm">kWh de producción total (16 días)</p>
+          <p className="font-semibold text-white/90 mt-1 text-sm">{averageDailyProductionKWh.toFixed(2)} kWh prom. diario</p>
         </div>
       </header>
 
@@ -186,7 +186,7 @@ export default function WindDashboard({ initialData, initialRegion, initialProvi
         <div className="flex items-center">
             <button onClick={() => setSelectedIndex(p => p > 0 ? p - 1 : 0)} disabled={selectedIndex === 0} className="p-2 rounded-full bg-slate-700/50 hover:bg-slate-600/50 disabled:opacity-50"><ChevronLeft/></button>
             <div ref={tabsContainerRef} className="flex-grow overflow-x-auto whitespace-nowrap scrollbar-hide mx-2">
-                {processedData.map((day, index) => <button key={day.id} onClick={() => setSelectedIndex(index)} className={`inline-block px-4 py-2 text-sm font-semibold rounded-full mr-2 transition-all duration-300 capitalize ${selectedIndex === index ? 'bg-blue-500 text-white shadow' : 'bg-slate-700/80 hover:bg-slate-600/80'}`}>{day.shortDate}</button>)}
+                {processedData.map((day, index) => <button key={day.id} onClick={() => setSelectedIndex(index)} className={`inline-block px-3 sm:px-4 py-2 text-sm font-semibold rounded-full mr-2 transition-all duration-300 capitalize ${selectedIndex === index ? 'bg-blue-500 text-white shadow' : 'bg-slate-700/80 hover:bg-slate-600/80'}`}>{day.shortDate}</button>)}
             </div>
             <button onClick={() => setSelectedIndex(p => p < processedData.length - 1 ? p + 1 : p)} disabled={selectedIndex === processedData.length - 1} className="p-2 rounded-full bg-slate-700/50 hover:bg-slate-600/50 disabled:opacity-50"><ChevronRight/></button>
         </div>
@@ -198,7 +198,7 @@ export default function WindDashboard({ initialData, initialRegion, initialProvi
             <div className="flex-grow">
                 <p className="text-sm text-slate-300">Producción Estimada Total Día</p>
                 <div className="flex items-baseline justify-between">
-                    <p className="text-2xl font-bold">{activeDay.totalProductionKWh.toFixed(2)} kWh</p>
+                    <p className="text-xl sm:text-2xl font-bold">{activeDay.totalProductionKWh.toFixed(2)} kWh</p>
                     <ProductionDiffIndicator />
                 </div>
                 <div className="flex items-center text-xs text-green-300/80 mt-1 pt-1 border-t border-white/10">
@@ -231,12 +231,13 @@ export default function WindDashboard({ initialData, initialRegion, initialProvi
       
       <div className="bg-slate-800/50 p-4 sm:p-6 rounded-lg mt-6">
           <h3 className="text-xl font-bold mb-4">Datos Detallados por Hora</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {/* <-- RESPONSIVE: 2 cols en móvil, 3 en sm, 4 en md, 6 en lg --> */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
               {activeDay.hourly.map(hour => (
-                  <div key={hour.hour} className="bg-slate-700/50 p-3 rounded-md text-center">
-                      <div className="text-sm opacity-80">{hour.hour}</div>
-                      <div className="font-bold text-sky-400">{hour.windSpeed} <span className="text-xs opacity-60">km/h</span></div>
-                      <div className="font-bold text-green-400">{(hour.generated/1000).toFixed(1)} <span className="text-xs opacity-60">kWh</span></div>
+                  <div key={hour.hour} className="bg-slate-700/50 p-2 sm:p-3 rounded-md text-center">
+                      <div className="text-xs sm:text-sm opacity-80">{hour.hour}</div>
+                      <div className="font-bold text-sky-400 text-sm sm:text-base">{hour.windSpeed} <span className="text-xs opacity-60">km/h</span></div>
+                      <div className="font-bold text-green-400 text-sm sm:text-base">{(hour.generated/1000).toFixed(1)} <span className="text-xs opacity-60">kWh</span></div>
                   </div>
               ))}
           </div>
