@@ -137,13 +137,13 @@ export default function SuniaDashboard() {
             <InfoColumn title="Recomendaciones" icon={<Lightbulb className="text-green-400 mr-2"/>}>
                 <InfoItem icon={<Zap size={24} className="text-slate-300"/>} text="Aprovecha la buena producción de energía actual para cualquier tarea que requiera alta demanda." time="Ahora mismo" />
                 <InfoItem icon={<AlertCircle size={24} className="text-yellow-400"/>} text="Un sensor detecta mucho consumo en standby, revísalo!!!" time="Detectado a las 11:30" />
-                <InfoItem icon={<WifiOff size={24} className="text-red-400"/>} text="Lavavajillas desconectado, no se ha podido iniciar el programa, revísalo!!!" time="Error a las 14:00" />
+                <InfoItem icon={<WifiOff size={24} className="text-red-400"/>} text="Lavavajillas desconectado, no se ha podido iniciar el programa, revísalo!!!" time="Error a las 15:30" />
             </InfoColumn>
 
             <InfoColumn title="Acciones Automáticas" icon={<Zap className="text-purple-400 mr-2"/>}>
                 <InfoItem icon={<Fan size={24} className="text-slate-300"/>} text="Ventilación inteligente activada abriendo y cerrando persianas." time="Activo ahora" />
                 <InfoItem icon={<Home size={24} className="text-slate-300"/>} text="Control de clima pasivo ajustando la posición de las cortinas." time="Activo ahora" />
-                <InfoItem icon={<WashingMachine size={24} className="text-blue-400"/>} text="Buena producción solar: Se ha programado la lavadora (ECO) a las 16:00 para que termine a las 18:00." time="Programado" />
+                <InfoItem icon={<WashingMachine size={24} className="text-blue-400"/>} text="Buena producción solar: Se ha programado la lavadora (ECO) a las 18:00 para que termine a las 20:30." time="Programado" />
                 <InfoItem icon={<Car size={24} className="text-red-400"/>} text="Gestión inteligente del vehículo: se usará la energía del vehículo esta noche para la vivienda y se cargará mañana por la mañana." time="Cancelado por tormenta" />
             </InfoColumn>
         </div>
