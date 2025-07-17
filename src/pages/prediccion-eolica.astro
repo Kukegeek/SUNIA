@@ -1,0 +1,28 @@
+---
+// src/pages/prediccion-eolica.astro
+import Layout from '../layouts/Layout.astro';
+import WindDashboard from '../components/WindDashboard.jsx';
+import { getWindData } from '../lib/windApi.js';
+
+// --- CORRECCIÓN AQUÍ: Cambiamos la ubicación inicial a Murcia ---
+const initialRegion = 'murcia_region';
+const initialProvince = 'murcia';
+
+const initialData = await getWindData({ 
+    regionKey: initialRegion, 
+    provinceKey: initialProvince, 
+});
+---
+
+<Layout title="Pronóstico de Generación Eólica">
+  <main class="bg-slate-900 min-h-screen py-8 sm:py-12 px-4 bg-cover bg-center" style="background-image: url('/wind-background.jpg');">
+    <div class="container mx-auto">
+       <WindDashboard 
+            client:load 
+            initialData={initialData} 
+            initialRegion={initialRegion} 
+            initialProvince={initialProvince} 
+        />
+    </div>
+  </main>
+</Layout>

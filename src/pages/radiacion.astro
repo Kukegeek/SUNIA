@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RadiationDashboard from '../components/RadiationDashboard.jsx';
+import { getSolarData, getRecommendedTilt, REGIONS } from '../lib/solarApi.js';
+
+// Carga inicial de datos para una carga rápida de la página
+const initialRegion = 'murcia_region';
+const initialProvince = 'murcia';
+const provinceData = REGIONS[initialRegion].provinces[initialProvince];
+const initialTilt = getRecommendedTilt(provinceData.lat);
+const initialData = await getSolarData({ 
+    regionKey: initialRegion, 
+    provinceKey: initialProvince, 
+    tilt: initialTilt, 
+    azimuth: 0 
+});
+---
+
+<Layout title="Pronóstico Solar Avanzado">
+  <main class="bg-gray-900 min-h-screen py-8 sm:py-12 px-4 bg-cover bg-center" style="background-image: url('/background.jpg');">
+    <div class="container mx-auto">
+       <RadiationDashboard 
+            client:load 
+            initialData={initialData} 
+            initialRegion={initialRegion} 
+            initialProvince={initialProvince} 
+        />
+    </div>
+  </main>
+</Layout>

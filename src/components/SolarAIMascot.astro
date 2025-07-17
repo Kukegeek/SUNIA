@@ -1,0 +1,137 @@
+---
+// No props needed
+---
+
+<div id="solaris-mascot" class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
+  <!-- Tooltip de recomendación -->
+  <div id="tip-bubble" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white p-3 rounded-lg shadow-lg max-w-xs transform transition-all duration-500">
+    <div class="flex justify-between items-start">
+      <p id="tip-text" class="text-sm font-medium leading-relaxed pr-2">
+        💡 ¡Hola! Soy Solaris, tu asistente de energía solar. ¡Haz clic para ir a SUNIA!
+      </p>
+      <button id="close-mascot" class="text-white hover:text-gray-200 transition-colors flex-shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="absolute bottom-[-8px] right-8 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-orange-500"></div>
+  </div>
+
+  <!-- Mascota Solaris -->
+  <div id="solaris-body" class="relative cursor-pointer transform transition-all duration-300 hover:scale-110 hover:rotate-12 active:scale-95 animate-pulse hover:animate-none">
+    <!-- Aura de energía -->
+    <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-md opacity-60 animate-ping"></div>
+    
+    <!-- Cuerpo principal -->
+    <div class="relative w-16 h-16 bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 rounded-full shadow-lg border-2 border-yellow-200 flex items-center justify-center overflow-hidden solaris-glow">
+      <!-- Cara de la IA -->
+      <div class="relative z-10">
+        <!-- Ojos -->
+        <div class="flex space-x-2 mb-1">
+          <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          <div class="w-2 h-2 bg-white rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+        </div>
+        <!-- Sonrisa -->
+        <div class="w-4 h-2 border-b-2 border-white rounded-full"></div>
+      </div>
+      
+      <!-- Rayos de sol -->
+      <div class="absolute inset-0">
+        <div class="absolute w-1 h-3 bg-yellow-200 opacity-70 top-0.5 left-1/2 transform -translate-x-1/2 animate-spin" style="animation-duration: 4s;"></div>
+        <div class="absolute w-1 h-3 bg-yellow-200 opacity-70 top-0.5 right-0.5 transform rotate-45 animate-spin" style="animation-duration: 4s; animation-delay: 0.1s;"></div>
+        <div class="absolute w-1 h-3 bg-yellow-200 opacity-70 top-1/2 right-0.5 transform rotate-90 -translate-y-1/2 animate-spin" style="animation-duration: 4s; animation-delay: 0.2s;"></div>
+        <div class="absolute w-1 h-3 bg-yellow-200 opacity-70 bottom-0.5 right-0.5 transform rotate-135 animate-spin" style="animation-duration: 4s; animation-delay: 0.3s;"></div>
+      </div>
+    </div>
+    
+    <!-- Indicador de clic -->
+    <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center animate-bounce">
+      <svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes solaris-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 193, 7, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(255, 193, 7, 0.8); }
+  }
+  
+  .solaris-glow {
+    animation: solaris-glow 2s ease-in-out infinite;
+  }
+  
+  #solaris-mascot {
+    user-select: none;
+  }
+</style>
+
+<script>
+  // Tips de energía solar
+  const solarTips = [
+    "💡 ¡Hola! Soy Solaris, tu asistente de energía solar. ¿Sabías que hoy es un gran día para generar energía?",
+    "☀️ Tip: Los paneles solares son más eficientes en días despejados como hoy. ¡Aprovecha al máximo!",
+    "🔋 ¿Sabías que puedes ahorrar hasta un 70% en tu factura eléctrica con energía solar?",
+    "🌱 Cada kWh solar que generas evita 0.5kg de CO2. ¡Estás ayudando al planeta!",
+    "📊 Revisa tus estadísticas de producción para optimizar tu consumo energético.",
+    "🏠 Tip: Usa electrodomésticos durante las horas de mayor radiación solar (10-16h).",
+    "⚡ ¿Necesitas más información sobre autoconsumo? ¡Haz clic en mí para ir a SUNIA!"
+  ];
+  
+  let currentTip = 0;
+  const tipText = document.getElementById('tip-text');
+  const solarisBody = document.getElementById('solaris-body');
+  const closeMascot = document.getElementById('close-mascot');
+  const mascotContainer = document.getElementById('solaris-mascot');
+  
+  // Cambiar tip cada 8 segundos
+  setInterval(() => {
+    currentTip = (currentTip + 1) % solarTips.length;
+    if (tipText) {
+      tipText.style.opacity = '0.5';
+      setTimeout(() => {
+        tipText.textContent = solarTips[currentTip];
+        tipText.style.opacity = '1';
+      }, 300);
+    }
+  }, 8000);
+  
+  // Click en Solaris para ir a SUNIA
+  if (solarisBody) {
+    solarisBody.addEventListener('click', () => {
+      window.location.href = '/sunia';
+    });
+  }
+  
+  // Cerrar mascota
+  if (closeMascot) {
+    closeMascot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mascotContainer) {
+        mascotContainer.style.display = 'none';
+        localStorage.setItem('solaris-hidden', 'true');
+      }
+    });
+  }
+  
+  // Verificar si la mascota debe estar oculta
+  if (localStorage.getItem('solaris-hidden') === 'true') {
+    if (mascotContainer) {
+      mascotContainer.style.display = 'none';
+    }
+  }
+  
+  // Mostrar tooltip inicial
+  setTimeout(() => {
+    const tipBubble = document.getElementById('tip-bubble');
+    if (tipBubble) {
+      tipBubble.classList.add('animate-bounce');
+      setTimeout(() => {
+        tipBubble.classList.remove('animate-bounce');
+      }, 3000);
+    }
+  }, 2000);
+</script>

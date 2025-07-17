@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProduccionChart from '../components/ProduccionChart.jsx';
+---
+
+<Layout title="Producción y Precios">
+  <div class="p-8">
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Producción Solar y Precios PVPC</h1>
+      <p class="text-gray-600">Datos de la API de ESIOS (Red Eléctrica de España) - Solo producción solar</p>
+    </div>
+    
+    <ProduccionChart client:load />
+    
+    <!-- Información adicional -->
+    <div class="mt-8 bg-blue-50 p-6 rounded-lg">
+      <h2 class="text-lg font-semibold text-blue-800 mb-3">ℹ️ Información sobre los datos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700">
+        <div>
+          <h3 class="font-medium mb-2">Fuente de datos:</h3>
+          <p>API ESIOS (Red Eléctrica de España)</p>
+          <p>Actualización automática cada 6 horas</p>
+          <p><strong>Nota:</strong> Los datos mostrados corresponden a 2 días antes de la fecha actual</p>
+        </div>
+        <div>
+          <h3 class="font-medium mb-2">Tecnologías mostradas:</h3>
+          <p>• Solo producción solar fotovoltaica</p>
+          <p>• Precios en €/MWh (no convertidos a €/kWh)</p>
+          <p>• Fecha y hora de obtención incluidas en cada gráfico</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

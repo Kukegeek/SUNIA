@@ -1,0 +1,29 @@
+---
+// src/pages/radiacionMurcia.astro
+import Layout from '../layouts/Layout.astro';
+import { getRadiationData } from '../lib/scraper.js';
+import RadiationDisplay from '../components/RadiationDisplay.jsx';
+
+// El scraping se hace en el servidor al construir la página
+const radiationData = await getRadiationData();
+---
+
+<Layout title="Radiación Solar en Murcia">
+  <main class="bg-gray-100 min-h-screen py-8 sm:py-12 px-4">
+    <div class="container mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-8">
+        Pronóstico de Radiación Solar para Murcia
+      </h1>
+      
+      <!-- 
+        El componente React se hidrata en el cliente.
+        'client:load' significa que el JS del componente se cargará tan pronto como la página se cargue.
+      -->
+      <RadiationDisplay client:load data={radiationData} />
+      
+      <footer class="text-center mt-8 text-gray-500 text-sm">
+        Datos obtenidos de <a href="https://www.tutiempo.net/radiacion-solar/murcia.html" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:underline">tutiempo.net</a>.
+      </footer>
+    </div>
+  </main>
+</Layout>

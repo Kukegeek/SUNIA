@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ClimaWidget from '../components/ClimaWidget.jsx';
+---
+
+<Layout title="Clima">
+  <div class="p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Información Meteorológica</h1>
+    <div class="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+      <p class="text-sm text-blue-800">
+        <strong>Fuente de datos:</strong> AEMET (Agencia Estatal de Meteorología)
+        <br />
+        <strong>Actualización:</strong> Cada 6 horas
+        <br />
+        <strong>Ubicación:</strong> Madrid (configurable)
+      </p>
+    </div>
+    <ClimaWidget client:load />
+  </div>
+</Layout>

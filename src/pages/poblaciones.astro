@@ -1,0 +1,21 @@
+---
+// src/pages/poblaciones.astro
+
+import Layout from '../layouts/Layout.astro';
+import PopulationRanking from '../components/PopulationRanking.jsx';
+
+// Ya no necesitamos leer el archivo aquí.
+// El componente PopulationRanking ahora tiene los datos internamente.
+---
+
+<Layout title="Ranking de Sostenibilidad Municipal">
+  <main class="bg-slate-900 min-h-screen py-8 sm:py-12 px-4">
+    <div class="container mx-auto">
+      {/* 
+        Simplemente renderizamos el componente. 
+        No necesitamos pasarle 'initialData' como prop. 
+      */}
+      <PopulationRanking client:load />
+    </div>
+  </main>
+</Layout>

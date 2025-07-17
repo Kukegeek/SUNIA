@@ -1,0 +1,20 @@
+---
+// src/pages/perfil.astro
+import Layout from '../layouts/Layout.astro';
+import UserProfile from '../components/UserProfile.jsx';
+import { readFileSync } from 'fs';
+import path from 'path';
+
+// 1. Leer el CSV como una simple cadena de texto
+const csvPath = path.resolve(process.cwd(), './consumo_editado_hogar_2025_OFICIAL-REE.csv');
+const csvContent = readFileSync(csvPath, 'utf-8');
+---
+
+<Layout title="Perfil de Usuario y Consumo">
+  <main class="bg-slate-900 min-h-screen py-8 sm:py-12 px-4">
+    <div class="container mx-auto">
+      {/* 2. Pasar la cadena de texto completa como prop */}
+      <UserProfile client:load csvData={csvContent} />
+    </div>
+  </main>
+</Layout>

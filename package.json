@@ -1,0 +1,28 @@
+{
+  "name": "autoconsumo-dashboard",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/tailwind": "^5",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "astro": "^4",
+    "date-fns": "^4.1.0",
+    "lucide-astro": "^0.525.0",
+    "lucide-react": "^0.525.0",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "recharts": "^3.0.2",
+    "tailwind-scrollbar-hide": "^4.0.0",
+    "tailwindcss": "^3"
+  }
+}

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UsuarioTabs from '../components/UsuarioTabs.jsx';
+---
+
+<Layout title="Usuario">
+  <div class="p-8">
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">Mi Perfil Energético</h1>
+      <div class="flex items-center mt-4 space-x-4">
+        <div class="bg-primary text-white px-4 py-2 rounded-lg">
+          <span class="text-sm">Nivel 5</span>
+        </div>
+        <div class="bg-secondary text-white px-4 py-2 rounded-lg">
+          <span class="text-sm">1,250 XP</span>
+        </div>
+        <div class="bg-accent text-white px-4 py-2 rounded-lg">
+          <span class="text-sm">Ranking: #23</span>
+        </div>
+      </div>
+    </div>
+    <UsuarioTabs client:load />
+  </div>
+</Layout>
