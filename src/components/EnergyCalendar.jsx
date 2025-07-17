@@ -78,12 +78,9 @@ export default function EnergyCalendar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
 
-  // useEffect para leer los datos combinados desde localStorage
   useEffect(() => {
-    console.log("Cargando datos del calendario desde localStorage...");
     const storedData = JSON.parse(localStorage.getItem('calendarEnergyData')) || {};
     setMonthlyData(storedData);
-    
     const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || {};
     setEvents(storedEvents);
   }, [currentDate]);
@@ -93,7 +90,12 @@ export default function EnergyCalendar() {
   const calendarStart = startOfWeek(monthStart, { weekStartsOn: 1 });
   const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 1 });
   const days = eachDayOfInterval({ start: calendarStart, end: calendarEnd });
-  const weekdays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  
+  // --- CAMBIO AQUÍ: Nombres de días largos y cortos para responsive ---
+  const weekdays = {
+    long: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    short: ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+  };
 
   const handleToggle = (batteryKey) => {
       setBatteryStates(prev => ({ ...prev, [batteryKey]: !prev[batteryKey] }));
@@ -114,11 +116,16 @@ export default function EnergyCalendar() {
   const familySharing = { 'José': 95.8, 'Diego': 85.5, 'María': 60.2 };
   const sortedFamily = Object.entries(familySharing);
   
+  // --- CAMBIO AQUÍ: Lógica de balance de red con valores fijos ---
   const gridBalance = useMemo(() => {
     const poured = Object.values(monthlyData).reduce((sum, day) => sum + (day?.solarPredicted || 0) + (day?.windPredicted || 0), 0) * 0.3;
-    const consumed = Object.values(monthlyData).reduce((sum, day) => sum + (day?.consumptionPredicted || 0), 0) * 1.1; // Se consume un 10% más de lo predicho de la red
-    const annualNet = poured * 12 - consumed * 12;
-    return { poured, consumed, netMonth: poured - consumed, netAnnual: annualNet };
+    
+    // Usamos los valores fijos proporcionados
+    const consumed = 70.3;
+    const netMonth = poured - consumed; // El balance se calcula con el nuevo consumo
+    const annualNet = netMonth * 9.3;
+
+ return { poured, consumed, netMonth, netAnnual: annualNet };
   }, [monthlyData]);
 
   const bfvBlocks = [
@@ -132,27 +139,31 @@ export default function EnergyCalendar() {
         <MonthNavigator currentDate={currentDate} setCurrentDate={setCurrentDate} />
 
         <div className="grid grid-cols-7 gap-1 text-center">
-            {weekdays.map(day => <div key={day} className="font-bold text-slate-400 pb-2">{day}</div>)}
+            {/* --- CAMBIO AQUÍ: Renderizado responsive de los días de la semana --- */}
+            {weekdays.long.map((day, index) => (
+                <div key={day} className="font-bold text-slate-400 pb-2 text-xs sm:text-base">
+                    <span className="hidden sm:inline">{day}</span>
+                    <span className="sm:hidden">{weekdays.short[index]}</span>
+                </div>
+            ))}
+
             {days.map(day => {
-                // Usamos formatos consistentes para buscar datos y eventos
                 const dateKeyForData = format(day, 'EEE, d MMM', { locale: es }).replace(/.$/, '');
                 const dateKeyForEvents = format(day, 'yyyy-MM-dd');
                 const dayData = monthlyData[dateKeyForData];
                 const dayEvents = events[dateKeyForEvents] || [];
                 
                 return (
-                    <div key={day.toString()} className={`h-40 p-2 border rounded-md flex flex-col transition-colors ${!isSameMonth(day, monthStart) ? 'bg-slate-900/50 text-slate-600 border-slate-800' : 'bg-slate-800/50 border-slate-700'} ${isSameDay(day, new Date()) ? '!border-orange-500' : ''}`}>
+                    <div key={day.toString()} className={`h-36 sm:h-40 p-1 sm:p-2 border rounded-md flex flex-col transition-colors ${!isSameMonth(day, monthStart) ? 'bg-slate-900/50 text-slate-600 border-slate-800' : 'bg-slate-800/50 border-slate-700'} ${isSameDay(day, new Date()) ? '!border-orange-500' : ''}`}>
                         <div className="flex justify-between items-center">
-                            <span className="font-bold">{format(day, 'd')}</span>
-                            {isSameMonth(day, monthStart) && <button onClick={() => handleDayClick(day)} className="text-slate-500 hover:text-orange-400"><PlusCircle size={18}/></button>}
+                            <span className="font-bold text-sm sm:text-base">{format(day, 'd')}</span>
+                            {isSameMonth(day, monthStart) && <button onClick={() => handleDayClick(day)} className="text-slate-500 hover:text-orange-400"><PlusCircle size={16}/></button>}
                         </div>
                         {isSameMonth(day, monthStart) && (
-                            <div className="mt-1 text-xs text-left space-y-1 flex-grow overflow-hidden">
-                                {dayData?.solarPredicted > 0 && <p className="flex items-center"><Sun size={14} className="mr-1 text-yellow-400"/> {dayData.solarPredicted.toFixed(1)} kWh</p>}
-                                {dayData?.windPredicted > 0 && <p className="flex items-center"><Wind size={14} className="mr-1 text-blue-400"/> {dayData.windPredicted.toFixed(1)} kWh</p>}
-                                {dayData?.consumptionPredicted > 0 && <p className="flex items-center text-red-400"><Zap size={14} className="mr-1"/> {dayData.consumptionPredicted.toFixed(1)} kWh</p>}
-                                
-                                <div className="text-[10px] space-y-0.5 overflow-y-auto max-h-12">
+                            <div className="mt-1 text-[10px] sm:text-xs text-left space-y-1 flex-grow overflow-hidden">
+                                {dayData?.solarPredicted > 0 && <p className="flex items-center"><Sun size={12} className="mr-1 text-yellow-400"/> {dayData.solarPredicted.toFixed(0)}<span className="hidden sm:inline"> kWh</span></p>}
+                                {dayData?.windPredicted > 0 && <p className="flex items-center"><Wind size={12} className="mr-1 text-blue-400"/> {dayData.windPredicted.toFixed(0)}<span className="hidden sm:inline"> kWh</span></p>}
+                                <div className="text-[9px] sm:text-[10px] space-y-0.5 overflow-y-auto max-h-16">
                                   {dayEvents.map((evt, i) => <p key={i} className="truncate" title={`${evt.name} (${evt.hours}h, ${evt.extraKWh}kWh)`}>⚡ {evt.name}</p>)}
                                 </div>
                             </div>
@@ -162,7 +173,6 @@ export default function EnergyCalendar() {
             })}
         </div>
         
-        {/* Módulos de Baterías (sin cambios) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             <BatteryModule title="Batería Física Vecinal" icon={<Battery size={20} className="mr-2 text-green-400"/>} isActive={batteryStates.bfv} onToggle={() => handleToggle('bfv')}>
               <div className="flex justify-between items-baseline mb-1">
@@ -210,14 +220,14 @@ export default function EnergyCalendar() {
               <div className="mt-2 pt-2 border-t border-slate-700 space-y-1">
                   <div className="flex justify-between items-baseline">
                       <p className="text-sm">Balance Neto Mensual:</p>
-                      <p className={`font-bold ${gridBalance.netMonth > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                          {gridBalance.netMonth > 0 ? '+' : ''}{gridBalance.netMonth.toFixed(1)} kWh
+                      <p className={`font-bold ${gridBalance.netMonth >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                          {gridBalance.netMonth >= 0 ? '+' : ''}{gridBalance.netMonth.toFixed(1)} kWh
                       </p>
                   </div>
                   <div className="flex justify-between items-baseline">
                       <p className="text-sm">Balance Neto Anual (Est.):</p>
-                      <p className={`font-bold ${gridBalance.netAnnual > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                          {gridBalance.netAnnual > 0 ? '+' : ''}{gridBalance.netAnnual.toFixed(0)} kWh
+                      <p className={`font-bold ${gridBalance.netAnnual >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                          {gridBalance.netAnnual >= 0 ? '+' : ''}{gridBalance.netAnnual.toFixed(0)} kWh
                       </p>
                   </div>
               </div>
