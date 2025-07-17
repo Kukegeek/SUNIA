@@ -188,7 +188,7 @@ export default function UserProfile({ csvData }) {
                         <User size={40}/>
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold">Murcia Green</h1>
+                        <h1 className="text-3xl font-bold">Green Murcia</h1>
                         <p className="text-slate-300">¡Bienvenido a tu centro de control energético!</p>
                     </div>
                 </div>
