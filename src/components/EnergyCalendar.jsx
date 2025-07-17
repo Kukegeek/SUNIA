@@ -117,16 +117,12 @@ export default function EnergyCalendar() {
   const sortedFamily = Object.entries(familySharing);
   
   // --- CAMBIO AQUÍ: Lógica de balance de red con valores fijos ---
-  const gridBalance = useMemo(() => {
-    const poured = Object.values(monthlyData).reduce((sum, day) => sum + (day?.solarPredicted || 0) + (day?.windPredicted || 0), 0) * 0.3;
-    
-    // Usamos los valores fijos proporcionados
-    const consumed = 70.3;
-    const netMonth = poured - consumed; // El balance se calcula con el nuevo consumo
-    const annualNet = netMonth * 9.3;
-
- return { poured, consumed, netMonth, netAnnual: annualNet };
-  }, [monthlyData]);
+  const gridBalance = {
+      poured: 101,
+      consumed: 34,
+      netMonth: 67,
+      netAnnual: 784,
+  };
 
   const bfvBlocks = [
     { name: 'Bloque 1', charge: 85, voltage: 53.297 },
@@ -139,14 +135,12 @@ export default function EnergyCalendar() {
         <MonthNavigator currentDate={currentDate} setCurrentDate={setCurrentDate} />
 
         <div className="grid grid-cols-7 gap-1 text-center">
-            {/* --- CAMBIO AQUÍ: Renderizado responsive de los días de la semana --- */}
             {weekdays.long.map((day, index) => (
                 <div key={day} className="font-bold text-slate-400 pb-2 text-xs sm:text-base">
                     <span className="hidden sm:inline">{day}</span>
                     <span className="sm:hidden">{weekdays.short[index]}</span>
                 </div>
             ))}
-
             {days.map(day => {
                 const dateKeyForData = format(day, 'EEE, d MMM', { locale: es }).replace(/.$/, '');
                 const dateKeyForEvents = format(day, 'yyyy-MM-dd');
@@ -163,6 +157,8 @@ export default function EnergyCalendar() {
                             <div className="mt-1 text-[10px] sm:text-xs text-left space-y-1 flex-grow overflow-hidden">
                                 {dayData?.solarPredicted > 0 && <p className="flex items-center"><Sun size={12} className="mr-1 text-yellow-400"/> {dayData.solarPredicted.toFixed(0)}<span className="hidden sm:inline"> kWh</span></p>}
                                 {dayData?.windPredicted > 0 && <p className="flex items-center"><Wind size={12} className="mr-1 text-blue-400"/> {dayData.windPredicted.toFixed(0)}<span className="hidden sm:inline"> kWh</span></p>}
+                                {dayData?.consumptionPredicted > 0 && <p className="flex items-center text-red-400"><Zap size={12} className="mr-1"/> {dayData.consumptionPredicted.toFixed(0)}<span className="hidden sm:inline"> kWh</span></p>}
+                                
                                 <div className="text-[9px] sm:text-[10px] space-y-0.5 overflow-y-auto max-h-16">
                                   {dayEvents.map((evt, i) => <p key={i} className="truncate" title={`${evt.name} (${evt.hours}h, ${evt.extraKWh}kWh)`}>⚡ {evt.name}</p>)}
                                 </div>
