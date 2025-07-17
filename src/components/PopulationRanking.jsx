@@ -74,7 +74,6 @@ export default function PopulationRanking() {
         { poblacion: 'Yecla', habitantes: 35521, consumoMwh: 44400, consumoKwhHab: 1250, solarMwh: 31000, autoconsumoPct: 69.8, ahorroPct: 38.39, ahorroCo2Tn: 4432, viviendasEficientes: 1600, cochesElectricos: 300, change: -3 },
     ];
     
-    // --- CÁLCULO PER CÁPITA ---
     const populationData = useMemo(() => {
         return initialPopulationData.map(p => ({
             ...p,
@@ -110,59 +109,59 @@ export default function PopulationRanking() {
         return sortConfig.direction === 'descending' ? ' ▼' : ' ▲';
     };
 
-    // --- PODIOS ACTUALIZADOS ---
     const topAutoconsumo = useMemo(() => [...populationData].sort((a,b) => b.autoconsumoPct - a.autoconsumoPct).slice(0,3), [populationData]);
     const topAhorroCo2 = useMemo(() => [...populationData].sort((a,b) => b.ahorroCo2KgHab - a.ahorroCo2KgHab).slice(0,3), [populationData]);
     const topProduccionSolar = useMemo(() => [...populationData].sort((a,b) => b.solarKwhHab - a.solarKwhHab).slice(0,3), [populationData]);
 
-    // --- CABECERAS DE TABLA ACTUALIZADAS ---
     const tableHeaders = [
-        { key: 'poblacion', label: 'Población' },
-        { key: 'habitantes', label: 'Habitantes' },
-        { key: 'autoconsumoPct', label: 'Autoconsumo', unit: '%' },
-        { key: 'solarKwhHab', label: 'Prod. Solar/hab', unit: ' kWh' },
-        { key: 'ahorroCo2KgHab', label: 'Ahorro CO₂/hab', unit: ' kg' },
-        { key: 'viviendasEficientes', label: 'Viviendas Efic.' },
-        { key: 'cochesElectricos', label: 'Coches Eléct.' },
+        { key: 'poblacion', label: 'Población', className: 'text-left' },
+        { key: 'habitantes', label: 'Habitantes', className: 'text-right hidden sm:table-cell' },
+        { key: 'autoconsumoPct', label: 'Autoconsumo', unit: '%', className: 'text-right' },
+        { key: 'solarKwhHab', label: 'Prod. Solar/hab', unit: ' kWh', className: 'text-right hidden md:table-cell' },
+        { key: 'ahorroCo2KgHab', label: 'Ahorro CO₂/hab', unit: ' kg', className: 'text-right' },
+        { key: 'viviendasEficientes', label: 'Viviendas Efic.', className: 'text-right hidden lg:table-cell' },
+        { key: 'cochesElectricos', label: 'Coches Eléct.', className: 'text-right hidden lg:table-cell' },
     ];
     
     return (
         <div className="w-full max-w-7xl mx-auto font-sans text-white">
-            <h1 className="text-4xl font-bold text-center mb-8">Ranking de Sostenibilidad Municipal</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">Ranking de Sostenibilidad Municipal</h1>
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <PodiumCard title="Top Autoconsumo" icon={<Sun size={24} className="mr-2 text-yellow-400"/>} topThree={topAutoconsumo} dataKey="autoconsumoPct" unit="%"/>
                 <PodiumCard title="Top Ahorro CO₂ / Hab." icon={<Leaf size={24} className="mr-2 text-green-400"/>} topThree={topAhorroCo2} dataKey="ahorroCo2KgHab" unit=" kg"/>
                 <PodiumCard title="Top Prod. Solar / Hab." icon={<Atom size={24} className="mr-2 text-blue-400"/>} topThree={topProduccionSolar} dataKey="solarKwhHab" unit=" kWh"/>
             </div>
             
-            <div className="bg-slate-800/50 p-4 rounded-lg overflow-x-auto">
-                <table className="w-full text-left whitespace-nowrap">
-                    <thead>
-                        <tr className="border-b border-slate-700">
-                            <th className="p-3">#</th>
-                            {tableHeaders.map(({ key, label }) => (
-                                <th key={key} className="p-3 cursor-pointer hover:text-orange-400 transition-colors" onClick={() => requestSort(key)}>
-                                    {label}{getSortIndicator(key)}
-                                </th>
-                            ))}
-                            <th className="p-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedData.map((item, index) => (
-                            <tr key={item.poblacion} className="border-b border-slate-800 hover:bg-slate-700/50">
-                                <td className="p-3 font-bold">{index + 1}</td>
-                                {tableHeaders.map(({ key, unit = '' }) => (
-                                    <td key={key} className="p-3">
-                                        {typeof item[key] === 'number' ? item[key].toLocaleString('es-ES') : item[key]}{unit}
-                                    </td>
+            <div className="bg-slate-800/50 rounded-lg">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="border-b border-slate-700">
+                                <th className="p-2 sm:p-3 text-sm font-semibold">#</th>
+                                {tableHeaders.map(({ key, label, className }) => (
+                                    <th key={key} className={`p-2 sm:p-3 text-sm font-semibold cursor-pointer hover:text-orange-400 transition-colors ${className || ''}`} onClick={() => requestSort(key)}>
+                                        {label}{getSortIndicator(key)}
+                                    </th>
                                 ))}
-                                <td className="p-3"><RankChangeIndicator change={item.change} /></td>
+                                <th className="p-2 sm:p-3"></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {sortedData.map((item, index) => (
+                                <tr key={item.poblacion} className="border-b border-slate-800 hover:bg-slate-700/50">
+                                    <td className="p-2 sm:p-3 font-bold">{index + 1}</td>
+                                    {tableHeaders.map(({ key, unit = '', className }) => (
+                                        <td key={key} className={`p-2 sm:p-3 text-sm ${className || ''}`}>
+                                            {typeof item[key] === 'number' ? item[key].toLocaleString('es-ES') : item[key]}{unit}
+                                        </td>
+                                    ))}
+                                    <td className="p-2 sm:p-3"><RankChangeIndicator change={item.change} /></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
