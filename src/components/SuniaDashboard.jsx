@@ -118,10 +118,10 @@ export default function SuniaDashboard() {
             <div className="flex"><div className="py-1"><AlertTriangle className="text-yellow-400 mr-3"/></div>
                 <div>
                     <p className="font-bold">Alerta Meteorológica: Tormenta de Arena Prevista para Mañana</p>
-                    <p className="text-sm">Se espera una reducción drástica de la producción solar. SUNIA ha tomado las siguientes acciones:</p>
+                    <p className="text-sm">Se espera una importante reducción de la producción solar. SUNIA ha tomado las siguientes acciones:</p>
                     <ul className="list-disc list-inside text-sm mt-2">
-                        <li>Adelantando electrodomésticos de alto consumo para hoy.</li>
-                        <li>Programando carga del vehículo eléctrico al 100% esta noche.</li>
+                        <li>Adelantando el uso de electrodomésticos de alto consumo para hoy.</li>
+                        <li>Programando carga del vehículo eléctrico al 100%.</li>
                         <li>Programada limpieza de placas solares para dentro de 3 días.</li>
                     </ul>
                 </div>
