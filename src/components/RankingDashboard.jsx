@@ -51,28 +51,29 @@ const xpRates = { solar: 5, gridExport: 20, gridImport: -20 };
 
 const vecinosRanking = [
     { rank: 1, name: "Green Murcia", salaris: 8250, change: 1 },
-    { rank: 2, name: "Casa Verde", salaris: 7890, change: -1 },
-    { rank: 3, name: "Solar Family", salaris: 7650, change: 0 },
-    { rank: 4, name: "EcoHome", salaris: 7420, change: 2 },
-    { rank: 5, name: "GreenPower", salaris: 7200, change: -1 },
-    { rank: 6, name: "SunHouse", salaris: 6980, change: 3 },
-    { rank: 7, name: "CleanEnergy", salaris: 6750, change: 0 },
-    { rank: 8, name: "EcoVecino", salaris: 6500, change: -2 },
-    { rank: 9, name: "SolarMax", salaris: 6250, change: 1 },
-    { rank: 10, name: "GreenLife", salaris: 6000, change: 0 },
+    { rank: 2, name: "Ana García", salaris: 7890, change: -1 },
+    { rank: 3, name: "Rosa María", salaris: 7470, change: 1 },
+    { rank: 4, name: "Luis Rodríguez", salaris: 7420, change: 0 },
+    { rank: 5, name: "María López", salaris: 7200, change: 2 },
+    { rank: 6, name: "Pedro Sánchez", salaris: 6980, change: -1 },
+    { rank: 7, name: "Laura Fernández", salaris: 6750, change: 3 },
+    { rank: 8, name: "Casa Verde", salaris: 6500, change: 0 },
+    { rank: 9, name: "Carmen Ruiz", salaris: 6250, change: -2 },
+    { rank: 10, name: "David Moreno", salaris: 6000, change: 1 },
+   
 ];
 
 const ciudadRanking = [
-    { rank: 1, name: "Carlos Martínez", salaris: 15420, change: 1 },
-    { rank: 2, name: "Ana García", salaris: 12890, change: -1 },
-    { rank: 3, name: "Green Murcia", salaris: 8250, change: 1 },
-    { rank: 4, name: "Luis Rodríguez", salaris: 8190, change: 0 },
-    { rank: 5, name: "María López", salaris: 8120, change: 2 },
-    { rank: 6, name: "Pedro Sánchez", salaris: 7950, change: -1 },
-    { rank: 7, name: "Laura Fernández", salaris: 7920, change: 3 },
-    { rank: 8, name: "Casa Verde", salaris: 7890, change: 0 },
-    { rank: 9, name: "Carmen Ruiz", salaris: 7750, change: -2 },
-    { rank: 10, name: "David Moreno", salaris: 7690, change: 1 },
+    { rank: 1, name: "AeroPOWER", salaris: 15420, change: 1 },
+    { rank: 2, name: "Casa Verde", salaris: 12890, change: -1 },
+    { rank: 3, name: "Green Murcia", salaris: 8250, change: 0 },
+    { rank: 4, name: "EcoHome", salaris: 8190, change: 2 },
+    { rank: 5, name: "GreenPower", salaris: 8120, change: -1 },
+    { rank: 6, name: "SunHouse", salaris: 7950, change: 3 },
+    { rank: 7, name: "CleanEnergy", salaris: 7920, change: 0 },
+    { rank: 8, name: "Ana García", salaris: 7890, change: -2 },
+    { rank: 9, name: "SolarMax", salaris: 7750, change: 1 },
+    { rank: 10, name: "GreenLife", salaris: 7690, change: 0 },
 ];
 
 const paisRanking = [
