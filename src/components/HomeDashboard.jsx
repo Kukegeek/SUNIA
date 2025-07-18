@@ -85,7 +85,7 @@ export default function HomeDashboard() {
             >
                 <div className="text-center">
                     <p className="text-slate-400">Consumo anual estimado</p>
-                    <p className="text-4xl font-bold">15,478<span className="text-2xl"> kWh</span></p>
+                    <p className="text-4xl font-bold">6450<span className="text-2xl"> kWh</span></p>
                 </div>
             </WidgetCard>
 
