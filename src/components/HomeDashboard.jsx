@@ -81,7 +81,7 @@ export default function HomeDashboard() {
                 href="/perfil" 
                 icon={<User size={24} className="text-orange-400"/>} 
                 title="Mi Perfil y Consumo"
-                description="Ajusta tu consumo anual y consulta tus predicciones personales."
+                description="Ajusta tu consumo anual y consulta tus predicciones."
             >
                 <div className="text-center">
                     <p className="text-slate-400">Consumo anual estimado</p>
@@ -108,12 +108,12 @@ export default function HomeDashboard() {
                 href="/sunia" 
                 icon={<Lightbulb size={24} className="text-teal-400"/>} 
                 title="Panel de SUNIA"
-                description="Controla tus dispositivos IoT y consulta las acciones de tu IA."
+                description=""Controla tus dispositivos y consulta las acciones de SunIA.""
             >
                  <div className="text-sm space-y-2">
                     <p className="bg-yellow-500/10 text-yellow-300 p-2 rounded-md font-semibold">Alerta: Tormenta de arena</p>
-                    <p className="bg-slate-700/50 p-2 rounded-md">Acción: Climatización en modo inercia</p>
-                </div>
+                    <p className="bg-slate-700/50 p-2 rounded-md">Acción: Programada cierre persianas y Carga vehículo</p>
+                  </div>
             </WidgetCard>
 
         </div>
