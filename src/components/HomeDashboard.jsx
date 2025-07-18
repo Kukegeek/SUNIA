@@ -72,7 +72,7 @@ export default function HomeDashboard() {
             >
                 <div className="text-sm space-y-2">
                     <p className="bg-slate-700/50 p-2 rounded-md">⚡ Evento: Cena con amigos (20:00)</p>
-                    <p className="bg-slate-700/50 p-2 rounded-md">🔋 Batería Física: 85%</p>
+                    <p className="bg-slate-700/50 p-2 rounded-md">🔋 Batería Física Vecinal (BFV): 85%</p>
                 </div>
             </WidgetCard>
             
