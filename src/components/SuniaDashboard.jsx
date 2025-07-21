@@ -177,11 +177,11 @@ export default function SuniaDashboard() {
                     <div className="bg-slate-700/50 p-2 rounded-md">Oeste: <span className="font-bold text-green-400">Abiertas</span></div>
                  </div>
             </DeviceCard>
-            <DeviceCard device={{ name: "Cortinas (Apertura %)", icon: <PanelLeft/>, isOn: devices.cortinasApertura.isOn, hasWifi: true, description: "Ajuste fino de la apertura para control preciso de la luz."}} onToggle={() => handleToggle('cortinasApertura')}>
+            <DeviceCard device={{ name: "Persianas (Apertura %)", icon: <PanelLeft/>, isOn: devices.cortinasApertura.isOn, hasWifi: true, description: "Ajuste fino de la apertura para control preciso de la luz."}} onToggle={() => handleToggle('cortinasApertura')}>
                 <div className="space-y-2 text-sm">
-                    <div><div className="flex justify-between"><span>Norte</span><span>40%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '40%'}}></div></div></div>
-                    <div><div className="flex justify-between"><span>Sur</span><span>10%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '10%'}}></div></div></div>
-                    <div><div className="flex justify-between"><span>Este</span><span>100%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-green-400 h-2 rounded-full" style={{width: '100%'}}></div></div></div>
+                    <div><div className="flex justify-between"><span>Norte</span><span>40%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '35%'}}></div></div></div>
+                    <div><div className="flex justify-between"><span>Sur</span><span>10%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '25%'}}></div></div></div>
+                    <div><div className="flex justify-between"><span>Este</span><span>100%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-green-400 h-2 rounded-full" style={{width: '70%'}}></div></div></div>
                 </div>
             </DeviceCard>
             <DeviceCard device={{ name: "Vehículo a Hogar (V2H)", icon: <Car className="text-purple-400"/>, isOn: devices.v2h.isOn, hasWifi: true, description: "Usar la batería del coche para alimentar la casa durante la noche."}} onToggle={() => handleToggle('v2h')}>
