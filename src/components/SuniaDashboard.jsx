@@ -177,7 +177,7 @@ export default function SuniaDashboard() {
                     <div className="bg-slate-700/50 p-2 rounded-md">Oeste: <span className="font-bold text-green-400">Abiertas</span></div>
                  </div>
             </DeviceCard>
-            <DeviceCard device={{ name: "Persianas (Apertura %)", icon: <PanelLeft/>, isOn: devices.cortinasApertura.isOn, hasWifi: true, description: "Ajuste fino de la apertura para control preciso de la luz."}} onToggle={() => handleToggle('cortinasApertura')}>
+            <DeviceCard device={{ name: "Persianas (Apertura %)", icon: <PanelLeft/>, isOn: devices.cortinasApertura.isOn, hasWifi: true, description: "Control de luz y ventilación natural."}} onToggle={() => handleToggle('cortinasApertura')}>
                 <div className="space-y-2 text-sm">
                     <div><div className="flex justify-between"><span>Norte</span><span>40%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '35%'}}></div></div></div>
                     <div><div className="flex justify-between"><span>Sur</span><span>10%</span></div><div className="w-full bg-slate-700 h-2 rounded-full"><div className="bg-slate-400 h-2 rounded-full" style={{width: '25%'}}></div></div></div>
