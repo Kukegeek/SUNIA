@@ -169,7 +169,7 @@ export default function SuniaDashboard() {
             <DeviceCard device={{ name: "Carga Vehículo", icon: <Plug/>, isOn: devices.cargaVehiculo.isOn, hasWifi: true, description: "Carga inteligente programada de 08:00 a 13:00 para mañana."}}>
                 <div className="text-center font-semibold text-lg">30 kWh <span className="text-sm text-slate-400">(~180 km)</span></div>
             </DeviceCard>
-            <DeviceCard device={{ name: "Cortinas (Posición)", icon: <PanelTop/>, isOn: devices.cortinasPosicion.isOn, hasWifi: true, description: "Optimización de ganancia térmica y lumínica."}} onToggle={() => handleToggle('cortinasPosicion')}>
+            <DeviceCard device={{ name: "Cortinas (Posición)", icon: <PanelTop/>, isOn: devices.cortinasPosicion.isOn, hasWifi: true, description: "Optimización del ajuste térmico y lumínico."}} onToggle={() => handleToggle('cortinasPosicion')}>
                  <div className="grid grid-cols-2 gap-2 text-center text-sm">
                     <div className="bg-slate-700/50 p-2 rounded-md">Norte: <span className="font-bold text-blue-400">Cerradas</span></div>
                     <div className="bg-slate-700/50 p-2 rounded-md">Sur: <span className="font-bold text-blue-400">Cerradas</span></div>
