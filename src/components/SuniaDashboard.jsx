@@ -236,7 +236,7 @@ export default function SuniaDashboard() {
                     <ul className="list-disc list-inside text-sm mt-2">
                         <li>Adelantando electrodomésticos de alto consumo para hoy.</li>
                         <li>Programando carga del vehículo eléctrico al 100% esta noche.</li>
-                        <li>Agendando limpieza de placas solares para dentro de 3 días.</li>
+                        <li>Programada limpieza de placas solares para dentro de 3 días.</li>
                     </ul>
                 </div>
             </div>
